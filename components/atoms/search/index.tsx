@@ -1,10 +1,10 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, FormEventHandler } from 'react';
 
 interface Props {
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
-  onSubmit: () => void;
+  onSubmit: FormEventHandler<HTMLFormElement>;
 }
 
 const SearchBar: React.FC<Props> = ({ placeholder, value, onChange, onSubmit }) => {
@@ -37,7 +37,7 @@ const SearchBar: React.FC<Props> = ({ placeholder, value, onChange, onSubmit }) 
             required
           />
         </div>
-        <button onClick={onSubmit} type="submit" className="border-2 border-black inline-flex rounded-full items-center py-2.5 px-3 ml-2 text-sm font-medium text-black focus:outline-none hover:bg-black hover:text-white duration-500">
+        <button type="submit" className="border-2 border-black inline-flex rounded-full items-center py-2.5 px-3 ml-2 text-sm font-medium text-black focus:outline-none hover:bg-black hover:text-white duration-500">
           Search
         </button>
       </form>
