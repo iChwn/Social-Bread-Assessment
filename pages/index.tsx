@@ -1,4 +1,4 @@
-import { Button, Card, Image, SearchBar } from "@/components";
+import { Button, Card, CardItem, Image, SearchBar } from "@/components";
 import { getMovieById, getMovieByName } from "./api/movie";
 import { FormEvent, useState } from "react";
 import _ from "lodash";
@@ -53,37 +53,44 @@ export default function Home() {
     setMovie(cloneMovie)
   };
 
+  const renderStatus = () => {
+    if(isLoading) {
+      return "Loading..."
+    } else if((!isMovieEmpty && !isLoading && movie.length === 0)) {
+      return "Your search list will appear here"
+    } else if ((!isLoading && isMovieEmpty)) {
+      return "Can't find any movies:("
+    }
+  }
+
   return (
     <div className="w-full h-full overflow-auto">
       <SearchBar onSubmit={onSubmit} value={searchValue} onChange={e => setSearchValue(e.target.value)} placeholder="Find movie by name" />
-      <div className="centered-container">
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5">
-          {movie.map((result, index) => {
-            return (
-              <Card key={index}> 
-                <div className="w-full md:w-[200px] max-w-[100%] h-full">
-                  <Image src={result.image} alt="inception"/>
-                </div>
-                <div className="p-5 md:w-[290px] max-w-[100%] flex flex-col items-start">
-                  <h1 className="font-bold text-lg">{result.title}</h1>
-                  <span className="text-gray-500 text-sm mt-2">{result.description}</span>
-                  {!result.details && (<Button isDisabled={isLoadingDetail} onClick={() => fetchDataById(result.id)} title="Show Detail" className="mt-3"/>)}
-                  {result.details && (
-                    <p className="pt-1">
-                      {result.details.plot}
-                    </p>
-                  )}
-                </div>
-              </Card>
-            )
-          })}
+      {!isLoading && (
+        <div className="centered-container">
+          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5">
+            {movie.map((result, index) => {
+              return (
+                <Card key={index}> 
+                  <div className="w-full md:w-[200px] max-w-[100%] h-full">
+                    <Image src={result.image} alt="inception"/>
+                  </div>
+                  <CardItem 
+                    title={result.title}
+                    description={result.description}
+                    isLoading={isLoadingDetail} 
+                    details={result.details} 
+                    fetchDataById={() => fetchDataById(result.id)} 
+                  />
+                </Card>
+              )
+            })}
+          </div>
         </div>
-      </div>
+      )}
       <div className="w-full flex items-center justify-center">
         <div className="font-xl text-5xl w-full flex items-center justify-center text-gray-300">
-          {isLoading && "Loading..."}
-          {(!isMovieEmpty && !isLoading && movie.length === 0) && "Your search list will appear here"}
-          {(!isLoading && isMovieEmpty) &&  "Can't find any movies:("}
+          {renderStatus()}
         </div>
       </div>
     </div>

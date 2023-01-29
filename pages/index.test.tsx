@@ -20,36 +20,36 @@ describe('Home Page', () => {
     expect(searchButton).toBeInTheDocument()
   })
 
-  // it('should call API when form submitted', async () => {
-  //   const { findByPlaceholderText, findByText } = render(<Home />)
-  //   const searchBar = await findByPlaceholderText('Find movie by name')
-  //   const searchButton = await findByText('Search')
+  it('should call API when form submitted', async () => {
+    const { findByPlaceholderText, findByText } = render(<Home />)
+    const searchBar = await findByPlaceholderText('Find movie by name')
+    const searchButton = await findByText('Search')
 
-  //   fireEvent.change(searchBar, { target: { value: 'inception' } })
-  //   fireEvent.click(searchButton)
+    fireEvent.change(searchBar, { target: { value: 'inception' } })
+    fireEvent.click(searchButton)
 
-  //   expect(getMovieByName).toHaveBeenCalledWith('inception')
-  // })
+    expect(getMovieByName).toHaveBeenCalledWith('inception')
+  })
 
-  // it('should show loading when searching', async () => {
-  //   const { findByPlaceholderText, findByText, findByText:findByTextLoading } = render(<Home />)
-  //   const searchBar = await findByPlaceholderText('Find movie by name')
-  //   const searchButton = await findByText('Search')
+  it('should show loading when searching', async () => {
+    const { findByPlaceholderText, findByText, findByText:findByTextLoading } = render(<Home />)
+    const searchBar = await findByPlaceholderText('Find movie by name')
+    const searchButton = await findByText('Search')
 
-  //   fireEvent.change(searchBar, { target: { value: 'inception' } })
-  //   fireEvent.click(searchButton)
-  //   const loading = await findByTextLoading('Loading...')
-  //   expect(loading).toBeInTheDocument()
-  // })
+    fireEvent.change(searchBar, { target: { value: 'inception' } })
+    fireEvent.click(searchButton)
+    const loading = await findByTextLoading('Loading...')
+    expect(loading).toBeInTheDocument()
+  })
 
-  // it('should show message when no movie found', async () => {
-  //   const { findByPlaceholderText, findByText } = render(<Home />)
-  //   const searchBar = await findByPlaceholderText('Find movie by name')
-  //   const searchButton = await findByText('Search')
+  it('should show message when no movie found', async () => {
+    const { findByPlaceholderText, findByText } = render(<Home />)
+    const searchBar = await findByPlaceholderText('Find movie by name')
+    const searchButton = await findByText('Search')
 
-  //   fireEvent.change(searchBar, { target: { value: 'not_exist_movie' } })
-  //   fireEvent.click(searchButton)
-  //   const message = await findByText("Can't find any movies:(")
-  //   expect(message).toBeInTheDocument()
-  // })
+    fireEvent.change(searchBar, { target: { value: 'not_exist_movie' } })
+    fireEvent.click(searchButton)
+    const message = await findByText("Can't find any movies:(")
+    expect(message).toBeInTheDocument()
+  })
 })

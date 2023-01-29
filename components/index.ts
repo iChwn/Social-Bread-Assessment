@@ -6,6 +6,7 @@ import Image from "./atoms/image";
 import SearchBar from "./atoms/search";
 
 //Molecules
+import CardItem from "./molecules/card/cardItem";
 
 
 //Organism
@@ -14,5 +15,6 @@ export {
   Card,
   Image,
   Button,
-  SearchBar
+  SearchBar,
+  CardItem
 };
